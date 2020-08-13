@@ -8,4 +8,5 @@ docker-compose up -d  > /dev/null &&
 echo "4/4-Running composer install" &&
 docker-compose exec php composer install > /dev/null &&
 cp ./source/.env.example ./source/.env  > /dev/null &&
+docker-compose exec php artisan key:generate > /dev/null &&
 echo "Sucessfully Installed Laravel on containers" 

@@ -1,7 +1,7 @@
 FROM php:7.3-fpm
 MAINTAINER Alessandro Marino https://github.com/alessandromr
 
-#Install system's dependencies and enable PHP modules 
+#Install system's dependencies and enable PHP modules
 RUN apt-get update && apt-get install -y \
       curl \
       libcurl4-gnutls-dev \
@@ -10,9 +10,9 @@ RUN apt-get update && apt-get install -y \
       git \
       zip \
       unzip \
-      mysql-client \
-      libjpeg-dev \ 
-      libfreetype6-dev \ 
+      mariadb-client \
+      libjpeg-dev \
+      libfreetype6-dev \
     && docker-php-ext-install \
       intl \
       mbstring \
@@ -32,6 +32,9 @@ RUN apt-get update && apt-get install -y \
 RUN pecl install -o -f redis \
     && pecl install -o -f mongodb \
     && rm -rf /tmp/pear
+
+# Install redis
+RUN docker-php-ext-enable redis
 
 WORKDIR /var/www
 
